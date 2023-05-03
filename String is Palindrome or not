@@ -8,7 +8,6 @@ int main()
 	i=0;
 	while(str1[i]!='\0')
 	i++;
-	printf("\nlength of the string is %d",i);
 	j=i-1;
 	k=0;
 	while(j>=0)
@@ -18,7 +17,6 @@ int main()
 		j--;
 	}
 	str2[k]='\n';
-	printf("\nreverse of the string is %s",str2);
 	if(strcmp(str1,str2)==1)
 	{
 		printf("\nthe string is not a palindrome");
