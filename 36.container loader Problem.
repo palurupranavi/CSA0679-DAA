@@ -1,0 +1,47 @@
+#include <stdio.h>
+
+#define MAX_CONTAINERS 100
+#define MAX_ITEMS 100
+
+int container_loader(int items[], int num_items, int container_capacity) {
+    int containers[MAX_CONTAINERS][MAX_ITEMS] = {0};
+    int num_containers = 1;
+    int container_sizes[MAX_CONTAINERS] = {0};
+    for (int i = 0; i < num_items; i++) {
+        int item = items[i];
+        int placed = 0;
+        for (int j = 0; j < num_containers; j++) {
+            int container_size = container_sizes[j];
+            if (container_size + item <= container_capacity) {
+                containers[j][container_size] = item;
+                container_sizes[j] += 1;
+                placed = 1;
+                break;
+            }
+        }
+        if (!placed) {
+            containers[num_containers][0] = item;
+            container_sizes[num_containers] = 1;
+            num_containers += 1;
+        }
+    }
+    printf("Arrangement of items in containers:\n");
+    for (int i = 0; i < num_containers; i++) {
+        printf("Container %d: ", i + 1);
+        for (int j = 0; j < container_sizes[i]; j++) {
+            printf("%d ", containers[i][j]);
+        }
+        printf("\n");
+    }
+    
+    return num_containers;
+}
+
+int main() {
+    int items[] = {3, 5, 2, 4, 7, 1, 6};
+    int num_items = sizeof(items) / sizeof(items[0]);
+    int container_capacity = 10;
+    int num_containers = container_loader(items, num_items, container_capacity);
+    printf("Total number of containers used: %d\n", num_containers);
+    return 0;
+}
